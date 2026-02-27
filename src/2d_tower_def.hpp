@@ -21,6 +21,10 @@ public:
 	virtual void draw_scene() {};
 	virtual void update() {};
 
+	scene* next_scene{ nullptr };
+
+	bool exit = false;
+
 private:
 };
 
@@ -28,7 +32,7 @@ class main_menu : public scene
 {
 public:
 	main_menu();
-	~main_menu() override = default;
+	~main_menu() override;
 
 	void draw_scene() override;
 	void update() override;
@@ -41,6 +45,15 @@ private:
 	std::array<button, 5> m_buttons;
 };
 
+class game_scene : public scene
+{
+	public:
+	game_scene();
+	~game_scene() override;
+	void draw_scene() override;
+	void update() override;
+};
+
 class tower_def
 {
 public:
@@ -50,5 +63,5 @@ public:
 
 private:
 
-	std::unique_ptr<scene> m_scene{ nullptr };
+	scene* m_scene{ nullptr };
 };

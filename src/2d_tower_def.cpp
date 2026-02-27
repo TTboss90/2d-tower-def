@@ -25,9 +25,9 @@ main_menu::main_menu()
 		{
 		case 1:
 			the_button.label = "Play";
-			the_button.on_click = [this, &the_button]() {
+			the_button.on_click = [this, btn = &the_button]() {
 				std::cout << "Play" << std::endl;
-				the_button.label = "Playing...";
+				btn->label = "Playing...";
 
 
 				};
@@ -47,13 +47,14 @@ main_menu::main_menu()
 		case 4:
 			the_button.on_click = [this]() {
 				std::cout << "Button 4 Clicked!" << std::endl;
+				next_scene = new game_scene();
 				};
 			break;
 		case 5:
 			the_button.label = "Exit";
 			the_button.on_click = [this]() {
 				std::cout << "Button 5 Clicked!" << std::endl;
-				CloseWindow();
+				exit = true;
 				};
 			break;
 		default:
@@ -110,6 +111,8 @@ void main_menu::draw_scene()
 	EndMode2D();
 }
 
+main_menu::~main_menu() {}
+
 tower_def::tower_def()
 {
 	constexpr int DESIGN_WIDTH = 1920;
@@ -119,23 +122,45 @@ tower_def::tower_def()
 
 	InitWindow(DESIGN_WIDTH, DESIGN_HEIGHT, "2D Tower Defense Game");
 
-	TraceLog(LOG_INFO, "Raylib version: %s", RAYLIB_VERSION);
-
-
 	//SetExitKey(KEY_NULL);
 
 	ToggleFullscreen();
 }
 
+game_scene::game_scene()
+{
+	std::cout << "Game Scene Created!" << std::endl;
+}
+
+void game_scene::update()
+{
+	std::cout << "Game Scene updating" << std::endl;
+}
+
+void game_scene::draw_scene()
+{
+	DrawFPS(10, 10);
+	std::cout << "Game Scene drawing" << std::endl;
+}
+
+game_scene::~game_scene()
+{
+	std::cout << "Game Scene Destroyed!" << std::endl;
+}
+
 void tower_def::run()
 {
-	m_scene = std::make_unique<main_menu>();
+	m_scene = new main_menu();
 
-	while (true)
+	while (!WindowShouldClose() && !m_scene->exit)
 	{
 		m_scene->update();
-		if (WindowShouldClose())
-			break;
+
+		if (m_scene->next_scene) {
+			scene* old_scene = m_scene;
+			m_scene = m_scene->next_scene;
+			delete old_scene;
+		}
 
 		BeginDrawing();
 			ClearBackground(RAYWHITE);
@@ -146,7 +171,11 @@ void tower_def::run()
 	}
 }
 
-tower_def::~tower_def() {}
+tower_def::~tower_def() 
+{
+	delete m_scene;
+	CloseWindow();
+}
 
 int main() {
 	tower_def tower_def_game;
