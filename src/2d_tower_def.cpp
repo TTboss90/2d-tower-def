@@ -2,13 +2,48 @@
 #include "2d_tower_def.hpp"
 #include <iostream>
 
+tower_def::tower_def()
+{
+	constexpr int DESIGN_WIDTH = 1920;
+	constexpr int DESIGN_HEIGHT = 1080;
+
+	SetConfigFlags(FLAG_VSYNC_HINT);
+
+	InitWindow(DESIGN_WIDTH, DESIGN_HEIGHT, "2D Tower Defense Game");
+
+	//SetExitKey(KEY_NULL);
+
+	ToggleFullscreen();
+}
+
+void tower_def::run()
+{
+	m_scene = std::make_unique<main_menu>();
+
+	while (!WindowShouldClose() && !m_scene->exit)
+	{
+		m_scene->update();
+
+		if (m_scene->next_scene) {
+			m_scene = std::move(m_scene->next_scene);
+		}
+
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		m_scene->draw_scene();
+
+		EndDrawing();
+	}
+}
+
+tower_def::~tower_def()
+{
+	CloseWindow();
+}
+
 main_menu::main_menu()
 {
-	m_camera.target = { 0, 0 };
-	m_camera.offset = { 0, 0 };
-	m_camera.rotation = 0.0f;
-	m_camera.zoom = 1;
-
 	int i = 0;
 	for (button& the_button : m_buttons) {
 		i++;
@@ -19,24 +54,20 @@ main_menu::main_menu()
 
 		the_button.label = "Button  " + std::to_string(i);
 
-		static int click_count = 0;
-
 		switch (i)
 		{
 		case 1:
 			the_button.label = "Play";
-			the_button.on_click = [this, btn = &the_button]() {
+			the_button.on_click = [this, i]() {
 				std::cout << "Play" << std::endl;
-				btn->label = "Playing...";
-
-
+				m_buttons[i - 1].label = "Playing...";
 				};
 			break;
 		case 2:
-			the_button.on_click = [this, &the_button]() {
+			the_button.on_click = [this, i]() {
 				std::cout << "Button 2 Clicked!" << std::endl;
-				click_count++;
-				the_button.label = "clickt " + std::to_string(click_count) + " times";
+				m_click_count++;
+				m_buttons[i-1].label = "clickt " + std::to_string(m_click_count) + " times";
 				};
 			break;
 		case 3:
@@ -47,7 +78,7 @@ main_menu::main_menu()
 		case 4:
 			the_button.on_click = [this]() {
 				std::cout << "Button 4 Clicked!" << std::endl;
-				next_scene = new game_scene();
+				next_scene = std::make_unique<game_scene>();
 				};
 			break;
 		case 5:
@@ -65,22 +96,8 @@ main_menu::main_menu()
 
 void main_menu::update()
 {
-	m_dt = GetFrameTime();
-	const float camera_speed = 50.0f;
-	if (IsKeyDown(KEY_W)) {
-		m_camera.target.y -= camera_speed * m_dt;
-	}
-	if (IsKeyDown(KEY_S)) {
-		m_camera.target.y += camera_speed * m_dt;
-	}
-	if (IsKeyDown(KEY_A)) {
-		m_camera.target.x -= camera_speed * m_dt;
-	}
-	if (IsKeyDown(KEY_D)) {
-		m_camera.target.x += camera_speed * m_dt;
-	}
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-		Vector2 mouse_pos = GetScreenToWorld2D(GetMousePosition(), m_camera);
+		Vector2 mouse_pos = GetMousePosition();
 		for (button& the_button : m_buttons) {
 			if (CheckCollisionPointRec(mouse_pos, the_button.rect)) {
 				the_button.on_click();
@@ -93,9 +110,7 @@ void main_menu::draw_scene()
 {
 	DrawFPS(10, 10);
 
-	BeginMode2D(m_camera);
-
-	for (button& the_button : m_buttons) 
+	for (button& the_button : m_buttons)
 	{
 		DrawRectangleRec(the_button.rect, BLUE);
 		int fontSize = 30;
@@ -107,75 +122,51 @@ void main_menu::draw_scene()
 		DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
 
 	}
-
-	EndMode2D();
 }
 
 main_menu::~main_menu() {}
 
-tower_def::tower_def()
-{
-	constexpr int DESIGN_WIDTH = 1920;
-	constexpr int DESIGN_HEIGHT = 1080;
-
-	SetConfigFlags(FLAG_VSYNC_HINT);
-
-	InitWindow(DESIGN_WIDTH, DESIGN_HEIGHT, "2D Tower Defense Game");
-
-	//SetExitKey(KEY_NULL);
-
-	ToggleFullscreen();
-}
-
 game_scene::game_scene()
 {
-	std::cout << "Game Scene Created!" << std::endl;
+	m_camera.target = { 0, 0 };
+	m_camera.offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+	m_camera.rotation = 0.0f;
+	m_camera.zoom = 1;
 }
 
 void game_scene::update()
 {
-	std::cout << "Game Scene updating" << std::endl;
+	if (IsKeyPressed(KEY_K))
+		next_scene = std::make_unique<main_menu>();
+
+	float dt = GetFrameTime();
+	const float camera_speed = 50.0f;
+	if (IsKeyDown(KEY_W)) {
+		m_camera.target.y -= camera_speed * dt;
+	}
+	if (IsKeyDown(KEY_S)) {
+		m_camera.target.y += camera_speed * dt;
+	}
+	if (IsKeyDown(KEY_A)) {
+		m_camera.target.x -= camera_speed * dt;
+	}
+	if (IsKeyDown(KEY_D)) {
+		m_camera.target.x += camera_speed * dt;
+	}
 }
 
 void game_scene::draw_scene()
 {
 	DrawFPS(10, 10);
-	std::cout << "Game Scene drawing" << std::endl;
+
+	BeginMode2D(m_camera);
+
+	DrawText("Game Scene", 10, 10, 40, RED);
+
+	EndMode2D();
 }
 
-game_scene::~game_scene()
-{
-	std::cout << "Game Scene Destroyed!" << std::endl;
-}
-
-void tower_def::run()
-{
-	m_scene = new main_menu();
-
-	while (!WindowShouldClose() && !m_scene->exit)
-	{
-		m_scene->update();
-
-		if (m_scene->next_scene) {
-			scene* old_scene = m_scene;
-			m_scene = m_scene->next_scene;
-			delete old_scene;
-		}
-
-		BeginDrawing();
-			ClearBackground(RAYWHITE);
-
-			m_scene->draw_scene();
-
-		EndDrawing();
-	}
-}
-
-tower_def::~tower_def() 
-{
-	delete m_scene;
-	CloseWindow();
-}
+game_scene::~game_scene() {}
 
 int main() {
 	tower_def tower_def_game;
