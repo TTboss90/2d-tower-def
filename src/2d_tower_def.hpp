@@ -1,4 +1,5 @@
 
+#pragma once
 #include <raylib.h>
 #include <array>
 #include <functional>
@@ -26,34 +27,6 @@ public:
 	bool exit = false;
 
 private:
-};
-
-class main_menu : public scene
-{
-public:
-	main_menu();
-	~main_menu() override;
-
-	void draw_scene() override;
-	void update() override;
-
-private:
-	std::array<button, 5> m_buttons;
-
-	int m_click_count = 0;
-};
-
-class game_scene : public scene
-{
-	public:
-	game_scene();
-	~game_scene() override;
-	void draw_scene() override;
-	void update() override;
-
-private:
-	Camera2D m_camera{ 0 };
-
 };
 
 class tower_def
