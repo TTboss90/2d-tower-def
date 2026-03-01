@@ -11,6 +11,7 @@ public:
 	virtual void draw_scene() = 0;
 	virtual void update() = 0;
 
+protected:
 	std::unique_ptr<scene> next_scene{ nullptr };
 
 	bool exit = false;

@@ -24,4 +24,4 @@ add_executable(2d_tower_def ${SOURCES})
 
 target_include_directories(2d_tower_def PRIVATE include)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+target_link_libraries(2d_tower_def PRIVATE raylib)
