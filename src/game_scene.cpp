@@ -1,5 +1,6 @@
 #include "game_scene.hpp"
 #include "menu_scene.hpp"
+#include <raymath.h>
 
 game_scene::game_scene()
 {
@@ -11,22 +12,16 @@ game_scene::game_scene()
 
 void game_scene::update()
 {
+	float dt = GetFrameTime();
+
 	if (IsKeyPressed(KEY_K))
 		next_scene = std::make_unique<main_menu>();
 
-	float dt = GetFrameTime();
-	const float camera_speed = 50.0f;
-	if (IsKeyDown(KEY_W)) {
-		m_camera.target.y -= camera_speed * dt;
-	}
-	if (IsKeyDown(KEY_S)) {
-		m_camera.target.y += camera_speed * dt;
-	}
-	if (IsKeyDown(KEY_A)) {
-		m_camera.target.x -= camera_speed * dt;
-	}
-	if (IsKeyDown(KEY_D)) {
-		m_camera.target.x += camera_speed * dt;
+	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+	{
+		Vector2 delta = GetMouseDelta();
+		delta = Vector2Scale(delta, -1.0f / m_camera.zoom);
+		m_camera.target = Vector2Add(m_camera.target, delta);
 	}
 }
 

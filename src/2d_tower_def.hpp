@@ -2,7 +2,6 @@
 #pragma once
 #include "scenes.hpp"
 #include <raylib.h>
-#include <array>
 #include <functional>
 #include <string>
 #include <memory>

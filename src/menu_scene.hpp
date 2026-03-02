@@ -1,6 +1,7 @@
 
 #pragma once
 #include "2d_tower_def.hpp"
+#include <array>
 
 class main_menu : public scene
 {
