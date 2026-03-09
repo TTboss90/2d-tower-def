@@ -1,6 +1,6 @@
 
 #pragma once
-#include "2d_tower_def.hpp"
+#include "../scenes.hpp"
 #include <array>
 #include <raylib.h>
 #include <functional>

@@ -1,6 +1,6 @@
 
 #include "menu_scene.hpp"
-#include "game_scene.hpp"
+#include "../game/game_scene.hpp"
 #include <iostream>
 
 void main_menu::init_main_menu()
