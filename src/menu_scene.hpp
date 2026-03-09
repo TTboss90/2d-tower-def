@@ -29,6 +29,7 @@ private:
 	void update_options_menu();
 
 	std::array<button, 5> m_main_buttons;
+	std::array<button, 5> m_option_buttons;
 
 	menu_state m_menu_state = menu_state::MAIN;
 

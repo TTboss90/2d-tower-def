@@ -20,33 +20,28 @@ void main_menu::init_main_menu()
 		case 1:
 			the_button.label = "Play";
 			the_button.on_click = [this, i]() {
-				std::cout << "Play" << std::endl;
 				next_scene = std::make_unique<game_scene>();
 				};
 			break;
 		case 2:
 			the_button.on_click = [this, i]() {
-				std::cout << "Button 2 Clicked!" << std::endl;
 				m_click_count++;
 				m_main_buttons[i - 1].label = "clickt " + std::to_string(m_click_count) + " times";
 				};
 			break;
 		case 3:
 			the_button.on_click = [this]() {
-				std::cout << "Button 3 Clicked!" << std::endl;
 				};
 			break;
 		case 4:
 			the_button.label = "Options";
 			the_button.on_click = [this]() {
-				std::cout << "Button 4 Clicked!" << std::endl;
 				m_menu_state = menu_state::OPTIONS;
 				};
 			break;
 		case 5:
 			the_button.label = "Exit";
 			the_button.on_click = [this]() {
-				std::cout << "Button 5 Clicked!" << std::endl;
 				exit = true;
 				};
 			break;
@@ -58,7 +53,47 @@ void main_menu::init_main_menu()
 
 void main_menu::init_options_menu()
 {
+	int i = 0;
+	for (button& the_button : m_option_buttons) {
+		i++;
+		the_button.rect.width = 200;
+		the_button.rect.height = 100;
+		the_button.rect.x = ((int)GetRenderWidth() / 2) - ((int)the_button.rect.width / 2);
+		the_button.rect.y = i * 150;
 
+		the_button.label = "setting  " + std::to_string(i);
+
+		switch (i)
+		{
+		case 1:
+			the_button.on_click = [this, i]() {
+				next_scene = std::make_unique<game_scene>();
+				};
+			break;
+		case 2:
+			the_button.on_click = [this, i]() {
+				m_click_count++;
+				m_option_buttons[i - 1].label = "clickt " + std::to_string(m_click_count) + " times";
+				};
+			break;
+		case 3:
+			the_button.on_click = [this]() {
+				};
+			break;
+		case 4:
+			the_button.on_click = [this]() {
+				};
+			break;
+		case 5:
+			the_button.label = "Back";
+			the_button.on_click = [this]() {
+				m_menu_state = menu_state::MAIN;
+				};
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void main_menu::draw_main_menu()
@@ -79,7 +114,18 @@ void main_menu::draw_main_menu()
 
 void main_menu::draw_options_menu()
 {
-	DrawText("Options Menu", 10, 10, 40, RED);
+	for (button& the_button : m_option_buttons)
+	{
+		DrawRectangleRec(the_button.rect, BLUE);
+		int fontSize = 30;
+		int textWidth = MeasureText(the_button.label.c_str(), fontSize);
+
+		float textX = the_button.rect.x + (the_button.rect.width - textWidth) / 2.0f;
+		float textY = the_button.rect.y + (the_button.rect.height - fontSize) / 2.0f;
+
+		DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
+
+	}
 }
 
 void main_menu::update_main_menu()
@@ -96,8 +142,14 @@ void main_menu::update_main_menu()
 
 void main_menu::update_options_menu()
 {
-	if (IsKeyPressed(KEY_K))
-		m_menu_state = menu_state::MAIN;
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		Vector2 mouse_pos = GetMousePosition();
+		for (button& the_button : m_option_buttons) {
+			if (CheckCollisionPointRec(mouse_pos, the_button.rect)) {
+				the_button.on_click();
+			}
+		}
+	}
 }
 
 void main_menu::update()
