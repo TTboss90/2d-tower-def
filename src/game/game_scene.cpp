@@ -1,5 +1,5 @@
 #include "game_scene.hpp"
-#include "../main_menu/menu_scene.hpp"
+#include "menu_scene.hpp"
 #include <raymath.h>
 
 game_scene::game_scene()

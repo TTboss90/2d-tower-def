@@ -1,6 +1,6 @@
 
 #pragma once
-#include "../scenes.hpp"
+#include "scenes.hpp"
 #include <array>
 #include <raylib.h>
 #include <functional>

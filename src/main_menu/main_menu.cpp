@@ -1,5 +1,5 @@
 #include "menu_scene.hpp"
-#include "../game/game_scene.hpp"
+#include "game_scene.hpp"
 
 void main_menu::init_main_menu()
 {
