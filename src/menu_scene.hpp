@@ -2,6 +2,16 @@
 #pragma once
 #include "2d_tower_def.hpp"
 #include <array>
+#include <raylib.h>
+#include <functional>
+#include <string>
+
+struct button
+{
+	Rectangle rect{ 0 };
+	std::function<void()> on_click;
+	std::string label;
+};
 
 enum class menu_state
 {

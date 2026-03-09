@@ -1,17 +1,7 @@
 
 #pragma once
 #include "scenes.hpp"
-#include <raylib.h>
-#include <functional>
-#include <string>
 #include <memory>
-
-struct button
-{
-	Rectangle rect{ 0 };
-	std::function<void()> on_click;
-	std::string label;
-};
 
 class tower_def
 {
