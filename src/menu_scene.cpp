@@ -3,7 +3,7 @@
 #include "game_scene.hpp"
 #include <iostream>
 
-main_menu::main_menu()
+void main_menu::init_main_menu()
 {
 	int i = 0;
 	for (button& the_button : m_main_buttons) {
@@ -56,23 +56,59 @@ main_menu::main_menu()
 	}
 }
 
+void main_menu::init_options_menu()
+{
+
+}
+
+void main_menu::draw_main_menu()
+{
+	for (button& the_button : m_main_buttons)
+	{
+		DrawRectangleRec(the_button.rect, BLUE);
+		int fontSize = 30;
+		int textWidth = MeasureText(the_button.label.c_str(), fontSize);
+
+		float textX = the_button.rect.x + (the_button.rect.width - textWidth) / 2.0f;
+		float textY = the_button.rect.y + (the_button.rect.height - fontSize) / 2.0f;
+
+		DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
+
+	}
+}
+
+void main_menu::draw_options_menu()
+{
+	DrawText("Options Menu", 10, 10, 40, RED);
+}
+
+void main_menu::update_main_menu()
+{
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		Vector2 mouse_pos = GetMousePosition();
+		for (button& the_button : m_main_buttons) {
+			if (CheckCollisionPointRec(mouse_pos, the_button.rect)) {
+				the_button.on_click();
+			}
+		}
+	}
+}
+
+void main_menu::update_options_menu()
+{
+	if (IsKeyPressed(KEY_K))
+		m_menu_state = menu_state::MAIN;
+}
+
 void main_menu::update()
 {
 	switch (m_menu_state)
 	{
 		case menu_state::MAIN:
-			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				Vector2 mouse_pos = GetMousePosition();
-				for (button& the_button : m_main_buttons) {
-					if (CheckCollisionPointRec(mouse_pos, the_button.rect)) {
-						the_button.on_click();
-					}
-				}
-			}
+			main_menu::update_main_menu();
 			break;
 		case menu_state::OPTIONS:
-			if (IsKeyPressed(KEY_K))
-				m_menu_state = menu_state::MAIN;
+			main_menu::update_options_menu();
 			break;
 	}
 }
@@ -84,23 +120,18 @@ void main_menu::draw_scene()
 	switch (m_menu_state) 
 	{
 		case menu_state::MAIN:
-			for (button& the_button : m_main_buttons)
-			{
-				DrawRectangleRec(the_button.rect, BLUE);
-				int fontSize = 30;
-				int textWidth = MeasureText(the_button.label.c_str(), fontSize);
-
-				float textX = the_button.rect.x + (the_button.rect.width - textWidth) / 2.0f;
-				float textY = the_button.rect.y + (the_button.rect.height - fontSize) / 2.0f;
-
-				DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
-
-			}
+			main_menu::draw_main_menu();
 			break;
 		case menu_state::OPTIONS:
-			DrawText("Options Menu", 10, 10, 40, RED);
+			main_menu::draw_options_menu();
 			break;
 	}
+}
+
+main_menu::main_menu()
+{
+	main_menu::init_main_menu();
+	main_menu::init_options_menu();
 }
 
 main_menu::~main_menu() {}
