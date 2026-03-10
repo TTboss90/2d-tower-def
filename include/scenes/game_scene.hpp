@@ -1,6 +1,6 @@
 
 #pragma once
-#include "scenes.hpp"
+#include "scenes/scenes.hpp"
 #include <raylib.h>
 
 class game_scene : public scene

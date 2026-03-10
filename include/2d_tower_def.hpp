@@ -1,6 +1,6 @@
 
 #pragma once
-#include "scenes.hpp"
+#include "scenes/scenes.hpp"
 #include <memory>
 
 class tower_def

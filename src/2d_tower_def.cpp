@@ -1,6 +1,6 @@
 
 #include "2d_tower_def.hpp"
-#include "menu_scene.hpp"
+#include "scenes/menu_scene.hpp"
 
 tower_def::tower_def()
 {

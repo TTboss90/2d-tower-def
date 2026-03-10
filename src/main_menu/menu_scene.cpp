@@ -1,5 +1,5 @@
 
-#include "menu_scene.hpp"
+#include "scenes/menu_scene.hpp"
 
 void main_menu::update()
 {

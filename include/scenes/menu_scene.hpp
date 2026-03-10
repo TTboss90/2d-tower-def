@@ -1,17 +1,11 @@
 
 #pragma once
-#include "scenes.hpp"
+#include "scenes/scenes.hpp"
 #include <array>
 #include <raylib.h>
 #include <functional>
 #include <string>
-
-struct button
-{
-	Rectangle rect{ 0 };
-	std::function<void()> on_click;
-	std::string label;
-};
+#include "core/ui/button.hpp"
 
 enum class menu_state
 {
