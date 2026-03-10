@@ -16,12 +16,22 @@ FetchContent_Declare(
     GIT_TAG 5.5
 )
 
-FetchContent_MakeAvailable(raylib)
+FetchContent_Declare(
+    raygui
+    GIT_REPOSITORY https://github.com/raysan5/raygui.git
+    GIT_TAG 4.0
+)
+
+FetchContent_MakeAvailable(raylib raygui)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
 
 add_executable(2d_tower_def ${SOURCES})
 
-target_include_directories(2d_tower_def PRIVATE include)
+target_include_directories(2d_tower_def
+    PRIVATE
+    include
+    ${raygui_SOURCE_DIR}/src
+)
 
 target_link_libraries(2d_tower_def PRIVATE raylib)
