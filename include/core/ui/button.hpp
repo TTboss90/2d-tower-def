@@ -1,7 +1,8 @@
 
 #pragma once
 #include <raylib.h>
-
+#include <functional>
+#include <string>
 
 struct button
 {
