@@ -10,30 +10,40 @@ game_scene::game_scene()
 	m_camera.zoom = 1;
 }
 
-void game_scene::update()
+void game_scene::run()
 {
-	float dt = GetFrameTime();
+	while (!WindowShouldClose()) {
+		float dt = GetFrameTime();
 
-	if (IsKeyPressed(KEY_K))
-		next_scene = std::make_unique<main_menu>();
+		if (IsKeyPressed(KEY_K)) {
+			next_scene = std::make_unique<main_menu>();
+			break;
+		}
 
-	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-	{
-		Vector2 delta = GetMouseDelta();
-		delta = Vector2Scale(delta, -1.0f / m_camera.zoom);
-		m_camera.target = Vector2Add(m_camera.target, delta);
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+		{
+			Vector2 delta = GetMouseDelta();
+			delta = Vector2Scale(delta, -1.0f / m_camera.zoom);
+			m_camera.target = Vector2Add(m_camera.target, delta);
+		}
+
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		DrawFPS(10, 10);
+
+		BeginMode2D(m_camera);
+
+		DrawText("Game Scene", 10, 10, 40, RED);
+
+		EndMode2D();
+
+		EndDrawing();
+
+		if (next_scene) {
+			break;
+		}
 	}
-}
-
-void game_scene::draw_scene()
-{
-	DrawFPS(10, 10);
-
-	BeginMode2D(m_camera);
-
-	DrawText("Game Scene", 10, 10, 40, RED);
-
-	EndMode2D();
 }
 
 game_scene::~game_scene() {}

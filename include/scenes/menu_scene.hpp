@@ -19,8 +19,7 @@ public:
 	main_menu();
 	~main_menu() override;
 
-	void draw_scene() override;
-	void update() override;
+	void run() override;
 
 private:
 	void init_main_menu();
@@ -38,4 +37,6 @@ private:
 	menu_state m_menu_state = menu_state::MAIN;
 
 	int m_click_count = 0;
+
+	bool m_exit = false;
 };

@@ -20,23 +20,16 @@ void tower_def::run()
 {
 	m_scene = std::make_unique<main_menu>();
 
-	while (!WindowShouldClose() && !m_scene->exit)
+	while (!WindowShouldClose())
 	{
-		
-
-		BeginDrawing();
-		ClearBackground(RAYWHITE);
-
-		m_scene->update();
+		m_scene->run();
 
 		if (m_scene->next_scene) {
 			m_scene = std::move(m_scene->next_scene);
 		}
-
-
-		m_scene->draw_scene();
-
-		EndDrawing();
+		else{
+			break;
+		}
 	}
 }
 

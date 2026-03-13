@@ -19,6 +19,7 @@ void main_menu::init_main_menu()
 			the_button.label = "Play";
 			the_button.on_click = [this, i]() {
 				next_scene = std::make_unique<game_scene>();
+				m_exit = true;
 				};
 			break;
 		case 2:
@@ -40,7 +41,7 @@ void main_menu::init_main_menu()
 		case 5:
 			the_button.label = "Exit";
 			the_button.on_click = [this]() {
-				exit = true;
+				m_exit = true;
 				};
 			break;
 		default:

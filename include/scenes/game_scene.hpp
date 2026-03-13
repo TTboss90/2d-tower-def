@@ -8,10 +8,10 @@ class game_scene : public scene
 public:
 	game_scene();
 	~game_scene() override;
-	void draw_scene() override;
-	void update() override;
+	void run() override;
 
 private:
 	Camera2D m_camera{ 0 };
 
+	bool m_exit = false;
 };
