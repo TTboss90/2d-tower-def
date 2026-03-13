@@ -22,14 +22,17 @@ void tower_def::run()
 
 	while (!WindowShouldClose() && !m_scene->exit)
 	{
+		
+
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
 		m_scene->update();
 
 		if (m_scene->next_scene) {
 			m_scene = std::move(m_scene->next_scene);
 		}
 
-		BeginDrawing();
-		ClearBackground(RAYWHITE);
 
 		m_scene->draw_scene();
 
