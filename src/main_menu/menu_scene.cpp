@@ -4,16 +4,6 @@
 void main_menu::run()
 {
 	while (!WindowShouldClose()) {
-		switch (m_menu_state)
-		{
-		case menu_state::MAIN:
-			main_menu::update_main_menu();
-			break;
-		case menu_state::OPTIONS:
-			main_menu::update_options_menu();
-			break;
-		}
-
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
@@ -21,11 +11,11 @@ void main_menu::run()
 
 		switch (m_menu_state)
 		{
-		case menu_state::MAIN:
-			main_menu::draw_main_menu();
+		case menu_state::TITLE:
+			main_menu::title_menu();
 			break;
 		case menu_state::OPTIONS:
-			main_menu::draw_options_menu();
+			main_menu::options_menu();
 			break;
 		}
 

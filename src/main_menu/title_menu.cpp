@@ -50,7 +50,7 @@ void main_menu::init_main_menu()
 	}
 }
 
-void main_menu::draw_main_menu()
+void main_menu::title_menu()
 {
 	for (button& the_button : m_main_buttons)
 	{
@@ -64,10 +64,7 @@ void main_menu::draw_main_menu()
 		DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
 
 	}
-}
 
-void main_menu::update_main_menu()
-{
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 		Vector2 mouse_pos = GetMousePosition();
 		for (button& the_button : m_main_buttons) {

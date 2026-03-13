@@ -9,7 +9,7 @@
 
 enum class menu_state
 {
-	MAIN,
+	TITLE,
 	OPTIONS,
 };
 
@@ -25,16 +25,14 @@ private:
 	void init_main_menu();
 	void init_options_menu();
 
-	void draw_main_menu();
-	void draw_options_menu();
+	void options_menu();
 
-	void update_main_menu();
-	void update_options_menu();
+	void title_menu();
 
 	std::array<button, 5> m_main_buttons;
 	std::array<button, 5> m_option_buttons;
 
-	menu_state m_menu_state = menu_state::MAIN;
+	menu_state m_menu_state = menu_state::TITLE;
 
 	int m_click_count = 0;
 

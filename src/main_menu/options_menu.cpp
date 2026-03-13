@@ -37,7 +37,7 @@ void main_menu::init_options_menu()
 		case 5:
 			the_button.label = "Back";
 			the_button.on_click = [this]() {
-				m_menu_state = menu_state::MAIN;
+				m_menu_state = menu_state::TITLE;
 				};
 			break;
 		default:
@@ -46,7 +46,7 @@ void main_menu::init_options_menu()
 	}
 }
 
-void main_menu::draw_options_menu()
+void main_menu::options_menu()
 {
 	for (button& the_button : m_option_buttons)
 	{
@@ -60,10 +60,7 @@ void main_menu::draw_options_menu()
 		DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
 
 	}
-}
 
-void main_menu::update_options_menu()
-{
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 		Vector2 mouse_pos = GetMousePosition();
 		for (button& the_button : m_option_buttons) {
