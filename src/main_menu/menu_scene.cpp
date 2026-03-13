@@ -1,5 +1,6 @@
 
 #include "scenes/menu_scene.hpp"
+#include <raygui.h>
 
 void main_menu::run()
 {
@@ -29,8 +30,11 @@ void main_menu::run()
 
 main_menu::main_menu()
 {
+	GuiSetStyle(DEFAULT, TEXT_SIZE, 25);
 	main_menu::init_main_menu();
 	main_menu::init_options_menu();
 }
 
-main_menu::~main_menu() {}
+main_menu::~main_menu() {
+	GuiSetStyle(DEFAULT, TEXT_SIZE, 10);
+}

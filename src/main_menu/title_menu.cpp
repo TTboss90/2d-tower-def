@@ -1,10 +1,11 @@
 #include "scenes/menu_scene.hpp"
 #include "scenes/game_scene.hpp"
+#include <raygui.h>
 
 void main_menu::init_main_menu()
 {
 	int i = 0;
-	for (button& the_button : m_main_buttons) {
+	for (button& the_button : m_title_buttons) {
 		i++;
 		the_button.rect.width = 200;
 		the_button.rect.height = 100;
@@ -25,7 +26,7 @@ void main_menu::init_main_menu()
 		case 2:
 			the_button.on_click = [this, i]() {
 				m_click_count++;
-				m_main_buttons[i - 1].label = "clickt " + std::to_string(m_click_count) + " times";
+				m_title_buttons[i - 1].label = "clickt " + std::to_string(m_click_count) + " times";
 				};
 			break;
 		case 3:
@@ -52,25 +53,31 @@ void main_menu::init_main_menu()
 
 void main_menu::title_menu()
 {
-	for (button& the_button : m_main_buttons)
+	//for (button& the_button : m_main_buttons)
+	//{
+	//	DrawRectangleRec(the_button.rect, BLUE);
+	//	int fontSize = 30;
+	//	int textWidth = MeasureText(the_button.label.c_str(), fontSize);
+
+	//	float textX = the_button.rect.x + (the_button.rect.width - textWidth) / 2.0f;
+	//	float textY = the_button.rect.y + (the_button.rect.height - fontSize) / 2.0f;
+
+	//	DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
+
+	//}
+
+	//if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+	//	Vector2 mouse_pos = GetMousePosition();
+	//	for (button& the_button : m_main_buttons) {
+	//		if (CheckCollisionPointRec(mouse_pos, the_button.rect)) {
+	//			the_button.on_click();
+	//		}
+	//	}
+	//}
+
+	for (button& the_button : m_title_buttons)
 	{
-		DrawRectangleRec(the_button.rect, BLUE);
-		int fontSize = 30;
-		int textWidth = MeasureText(the_button.label.c_str(), fontSize);
-
-		float textX = the_button.rect.x + (the_button.rect.width - textWidth) / 2.0f;
-		float textY = the_button.rect.y + (the_button.rect.height - fontSize) / 2.0f;
-
-		DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
-
-	}
-
-	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-		Vector2 mouse_pos = GetMousePosition();
-		for (button& the_button : m_main_buttons) {
-			if (CheckCollisionPointRec(mouse_pos, the_button.rect)) {
-				the_button.on_click();
-			}
-		}
+		if (GuiButton(the_button.rect, the_button.label.c_str()))
+			the_button.on_click();
 	}
 }
