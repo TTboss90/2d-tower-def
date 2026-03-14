@@ -31,7 +31,7 @@ void main_menu::run()
 main_menu::main_menu()
 {
 	GuiSetStyle(DEFAULT, TEXT_SIZE, 25);
-	main_menu::init_main_menu();
+	main_menu::init_title_menu();
 	main_menu::init_options_menu();
 }
 

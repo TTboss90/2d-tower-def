@@ -22,7 +22,7 @@ public:
 	void run() override;
 
 private:
-	void init_main_menu();
+	void init_title_menu();
 	void init_options_menu();
 
 	void options_menu();

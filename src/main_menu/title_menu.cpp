@@ -2,7 +2,7 @@
 #include "scenes/game_scene.hpp"
 #include <raygui.h>
 
-void main_menu::init_main_menu()
+void main_menu::init_title_menu()
 {
 	int i = 0;
 	for (button& the_button : m_title_buttons) {
