@@ -11,6 +11,8 @@ tower_def::tower_def()
 
 	InitWindow(DESIGN_WIDTH, DESIGN_HEIGHT, "2D Tower Defense Game");
 
+	InitAudioDevice();
+
 	//SetExitKey(KEY_NULL);
 
 	ToggleFullscreen();

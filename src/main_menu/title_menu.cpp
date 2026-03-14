@@ -56,6 +56,9 @@ void main_menu::title_menu()
 	for (button& the_button : m_title_buttons)
 	{
 		if (GuiButton(the_button.rect, the_button.label.c_str()))
+		{
+			PlaySound(m_click_sound);
 			the_button.on_click();
+		}
 	}
 }

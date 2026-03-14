@@ -37,4 +37,6 @@ private:
 	int m_click_count = 0;
 
 	bool m_exit = false;
+
+	Sound m_click_sound;
 };

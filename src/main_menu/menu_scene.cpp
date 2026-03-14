@@ -30,11 +30,14 @@ void main_menu::run()
 
 main_menu::main_menu()
 {
+	m_click_sound = LoadSound(".\\resources\\click.wav");
+
 	GuiSetStyle(DEFAULT, TEXT_SIZE, 25);
 	main_menu::init_title_menu();
 	main_menu::init_options_menu();
 }
 
 main_menu::~main_menu() {
+	UnloadSound(m_click_sound);
 	GuiSetStyle(DEFAULT, TEXT_SIZE, 10);
 }
