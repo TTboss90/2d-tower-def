@@ -53,28 +53,6 @@ void main_menu::init_title_menu()
 
 void main_menu::title_menu()
 {
-	//for (button& the_button : m_main_buttons)
-	//{
-	//	DrawRectangleRec(the_button.rect, BLUE);
-	//	int fontSize = 30;
-	//	int textWidth = MeasureText(the_button.label.c_str(), fontSize);
-
-	//	float textX = the_button.rect.x + (the_button.rect.width - textWidth) / 2.0f;
-	//	float textY = the_button.rect.y + (the_button.rect.height - fontSize) / 2.0f;
-
-	//	DrawText(the_button.label.c_str(), textX, textY, fontSize, BLACK);
-
-	//}
-
-	//if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-	//	Vector2 mouse_pos = GetMousePosition();
-	//	for (button& the_button : m_main_buttons) {
-	//		if (CheckCollisionPointRec(mouse_pos, the_button.rect)) {
-	//			the_button.on_click();
-	//		}
-	//	}
-	//}
-
 	for (button& the_button : m_title_buttons)
 	{
 		if (GuiButton(the_button.rect, the_button.label.c_str()))
