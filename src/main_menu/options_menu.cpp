@@ -18,7 +18,6 @@ void main_menu::init_options_menu()
 		{
 		case 1:
 			the_button.on_click = [this, i]() {
-				next_scene = std::make_unique<game_scene>();
 				};
 			break;
 		case 2:
