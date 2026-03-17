@@ -3,6 +3,12 @@
 #include "scenes/scenes.hpp"
 #include <raylib.h>
 
+enum class game_state
+{
+	playing,
+	paused,
+};
+
 class game_scene : public scene
 {
 public:
@@ -11,7 +17,17 @@ public:
 	void run() override;
 
 private:
+	void Default();
+
+	void handle_paused();
+
+	void handle_playing();
+
+
 	Camera2D m_camera{ 0 };
+
+
+	game_state m_state = game_state::playing;
 
 	bool m_exit = false;
 };
