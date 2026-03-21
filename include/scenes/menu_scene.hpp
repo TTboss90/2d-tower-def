@@ -30,11 +30,15 @@ private:
 	void title_menu();
 
 	std::array<button, 5> m_title_buttons;
-	std::array<button, 5> m_option_buttons;
+	std::array<button, 4> m_option_buttons;
+
+	Rectangle m_volume_slider{ 0 };
 
 	menu_state m_menu_state = menu_state::TITLE;
 
 	int m_click_count = 0;
+
+	float m_volume;
 
 	bool m_exit = false;
 
