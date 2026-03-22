@@ -7,12 +7,14 @@
 #include <string>
 #include "core/ui/button.hpp"
 
+//menu state enum, can be expanded in the future to include more states like credits, etc.
 enum class menu_state
 {
 	TITLE,
 	OPTIONS,
 };
 
+//main menu scene class, inherits from the base scene class, handles the main menu logic and rendering
 class main_menu : public scene
 {
 public:

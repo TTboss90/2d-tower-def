@@ -3,6 +3,7 @@
 #include <raymath.h>
 #include <raygui.h>
 
+//constructor, initializes the camera
 game_scene::game_scene()
 {
 	m_camera.target = { 0, 0 };
@@ -11,6 +12,7 @@ game_scene::game_scene()
 	m_camera.zoom = 1;
 }
 
+//handles the default state, just draws some text on the screen
 void game_scene::Default()
 {
 	BeginMode2D(m_camera);
@@ -20,6 +22,7 @@ void game_scene::Default()
 	EndMode2D();
 }
 
+//handles the paused state, checks if the button is clicked
 void game_scene::handle_paused() 
 {
 	if (GuiButton(Rectangle{100,100,100,100},"hi")) {
@@ -27,6 +30,7 @@ void game_scene::handle_paused()
 	}
 }
 
+//handles the playing state, checks if the left mouse button is down and moves the camera target based on the mouse delta
 void game_scene::handle_playing() 
 {
 	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
@@ -37,6 +41,7 @@ void game_scene::handle_playing()
 	}
 }
 
+//runs the game scene, checks the current game state and runs the corresponding functions, also checks if there is a next scene to switch to
 void game_scene::run()
 {
 	while (!WindowShouldClose()) {

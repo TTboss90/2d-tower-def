@@ -3,6 +3,7 @@
 #include "scenes/scenes.hpp"
 #include <memory>
 
+//main game class
 class tower_def
 {
 public:

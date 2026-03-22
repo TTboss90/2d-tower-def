@@ -2,6 +2,7 @@
 #include "scenes/game_scene.hpp"
 #include <raygui.h>
 
+//constructor, initializes the title menu and loads the click sound
 void main_menu::init_title_menu()
 {
 	int i = 0;
@@ -51,6 +52,7 @@ void main_menu::init_title_menu()
 	}
 }
 
+//runs the title menu, checks if any button is clicked and plays the click sound
 void main_menu::title_menu()
 {
 	for (button& the_button : m_title_buttons)

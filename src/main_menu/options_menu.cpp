@@ -2,6 +2,7 @@
 #include "scenes/game_scene.hpp"
 #include <raygui.h>
 
+//constructor, initializes the options menu and loads the click sound
 void main_menu::init_options_menu()
 {
 	int i = 0;
@@ -50,6 +51,7 @@ void main_menu::init_options_menu()
 	m_volume_slider.y = 150;
 }
 
+//runs the options menu, checks if any button is clicked and plays the click sound, also updates the master volume based on the slider value
 void main_menu::options_menu()
 {
 	for (button& the_button : m_option_buttons)

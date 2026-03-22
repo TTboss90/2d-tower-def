@@ -2,6 +2,8 @@
 #include "scenes/menu_scene.hpp"
 #include <raygui.h>
 
+
+//runs the main menu, checks the current menu state and runs the corresponding menu, also checks if the exit flag is set to break the loop
 void main_menu::run()
 {
 	while (!WindowShouldClose()) {
@@ -28,6 +30,7 @@ void main_menu::run()
 	}
 }
 
+//constructor, initializes the main menu, loads the click sound and sets the text size for the buttons
 main_menu::main_menu()
 {
 	m_click_sound = LoadSound(".\\resources\\click.wav");
@@ -37,6 +40,7 @@ main_menu::main_menu()
 	main_menu::init_options_menu();
 }
 
+//destructor, unloads the click sound and resets the text size for the buttons
 main_menu::~main_menu() {
 	UnloadSound(m_click_sound);
 	GuiSetStyle(DEFAULT, TEXT_SIZE, 10);

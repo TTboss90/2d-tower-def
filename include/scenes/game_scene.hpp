@@ -3,12 +3,14 @@
 #include "scenes/scenes.hpp"
 #include <raylib.h>
 
+//game state enum, can be expanded in the future to include more states like game over, victory, etc.
 enum class game_state
 {
 	playing,
 	paused,
 };
 
+//game scene class, inherits from the base scene class, handles the main game logic and rendering
 class game_scene : public scene
 {
 public:

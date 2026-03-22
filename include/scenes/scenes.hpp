@@ -2,6 +2,7 @@
 #pragma once
 #include <memory>
 
+//base scene class
 class scene
 {
 public:
