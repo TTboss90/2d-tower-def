@@ -2,6 +2,8 @@
 #include "scenes/game_scene.hpp"
 #include <raygui.h>
 
+constexpr std::string_view game_name = "2d tower defense";
+
 //constructor, initializes the title menu and loads the click sound
 void main_menu::init_title_menu()
 {
@@ -11,7 +13,7 @@ void main_menu::init_title_menu()
 		the_button.rect.width = 200;
 		the_button.rect.height = 100;
 		the_button.rect.x = ((int)GetRenderWidth() / 2) - ((int)the_button.rect.width / 2);
-		the_button.rect.y = i * 150;
+		the_button.rect.y = i * 150 + 150;
 
 		the_button.label = "Button  " + std::to_string(i);
 
@@ -55,6 +57,15 @@ void main_menu::init_title_menu()
 //runs the title menu, checks if any button is clicked and plays the click sound
 void main_menu::title_menu()
 {
+	int fontSize = 50;
+	int textWidth = MeasureText(game_name.data(), fontSize);
+
+	int screenWidth = GetRenderWidth();
+	int x = (screenWidth - textWidth) / 2;
+	int y = 150; 
+
+	DrawText(game_name.data(), x, y, fontSize, BLACK);
+
 	for (button& the_button : m_title_buttons)
 	{
 		if (GuiButton(the_button.rect, the_button.label.c_str()))
