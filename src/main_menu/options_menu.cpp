@@ -43,7 +43,6 @@ void main_menu::init_options_menu()
 	}
 
 	m_volume = GetMasterVolume() * 100;
-	TraceLog(LOG_INFO, "Current master volume: %f", m_volume);
 
 	m_volume_slider.width = 300;
 	m_volume_slider.height = 50;
