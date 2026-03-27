@@ -25,6 +25,12 @@ void game_scene::Default()
 //handles the paused state, checks if the button is clicked
 void game_scene::handle_paused() 
 {
+	BeginBlendMode(2); // 4 for inverse blending, 2 makes it darker
+	
+	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), GRAY);
+
+	EndBlendMode();
+
 	if (GuiButton(Rectangle{100,100,100,100},"hi")) {
 	
 	}
