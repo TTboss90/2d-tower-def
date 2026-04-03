@@ -22,8 +22,9 @@ private:
 	void Default();
 
 	void handle_paused();
-
 	void handle_playing();
+
+	void game_menu();
 
 
 	Camera2D m_camera{ 0 };

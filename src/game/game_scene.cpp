@@ -31,9 +31,7 @@ void game_scene::handle_paused()
 
 	EndBlendMode();
 
-	if (GuiButton(Rectangle{100,100,100,100},"hi")) {
-	
-	}
+	game_menu();
 }
 
 //handles the playing state, checks if the left mouse button is down and moves the camera target based on the mouse delta
@@ -57,11 +55,6 @@ void game_scene::run()
 		DrawFPS(10, 10);
 
 		float dt = GetFrameTime();
-
-		if (IsKeyPressed(KEY_K)) {
-			next_scene = std::make_unique<main_menu>();
-			break;
-		}
 
 		if (IsKeyPressed(KEY_E)) {
 			if (m_state == game_state::playing) {
