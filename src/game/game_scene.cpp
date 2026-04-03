@@ -76,7 +76,7 @@ void game_scene::run()
 
 		EndDrawing();
 
-		if (next_scene) {
+		if (m_exit) {
 			break;
 		}
 	}
