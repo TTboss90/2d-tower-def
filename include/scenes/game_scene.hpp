@@ -29,6 +29,9 @@ private:
 
 	Camera2D m_camera{ 0 };
 
+	Rectangle m_volume_slider{ 0 };
+
+	float m_volume;
 
 	game_state m_state = game_state::playing;
 

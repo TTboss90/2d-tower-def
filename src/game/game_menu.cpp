@@ -8,4 +8,8 @@ void game_scene::game_menu()
 		next_scene = std::make_unique<main_menu>();
 		m_exit = true;
 	}
+
+	GuiSlider(m_volume_slider, "Volume", TextFormat("%.0f", m_volume), &m_volume, 0.0f, 100.0f);
+
+	SetMasterVolume(m_volume / 100.0f);
 }
