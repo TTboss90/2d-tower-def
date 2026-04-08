@@ -1,6 +1,9 @@
 
 #pragma once
 #include "scenes/scenes.hpp"
+#include <memory>
+#include <cstdint>
+#include <array>
 #include <raylib.h>
 
 //game state enum, can be expanded in the future to include more states like game over, victory, etc.
@@ -14,7 +17,7 @@ enum class game_state
 class game_scene : public scene
 {
 public:
-	game_scene();
+	game_scene(int w, int h, const char* tile_map_file);
 	~game_scene() override;
 	void run() override;
 
@@ -26,6 +29,11 @@ private:
 
 	void game_menu();
 
+	Texture2D m_tileset;
+
+	std::unique_ptr<uint8_t[]> m_map;
+
+	Texture2D m_tile_texture;
 
 	Camera2D m_camera{ 0 };
 

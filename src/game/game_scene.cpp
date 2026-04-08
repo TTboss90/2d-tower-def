@@ -4,7 +4,7 @@
 #include <raygui.h>
 
 //constructor, initializes the camera
-game_scene::game_scene()
+game_scene::game_scene(int w,int h,const char* tile_map_file)
 {
 	m_camera.target = { 0, 0 };
 	m_camera.offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
@@ -17,16 +17,9 @@ game_scene::game_scene()
 	m_volume_slider.height = 50;
 	m_volume_slider.x = ((int)GetRenderWidth() / 2) - ((int)m_volume_slider.width / 2);
 	m_volume_slider.y = 150;
-}
 
-//handles the default state, just draws some text on the screen
-void game_scene::Default()
-{
-	BeginMode2D(m_camera);
-
-	DrawText("Game Scene", 10, 10, 40, RED);
-
-	EndMode2D();
+	m_map = std::make_unique<uint8_t[]>(w * h);
+	m_tile_texture = LoadTexture(tile_map_file);
 }
 
 //handles the paused state, checks if the button is clicked
@@ -89,4 +82,7 @@ void game_scene::run()
 	}
 }
 
-game_scene::~game_scene() {}
+game_scene::~game_scene() 
+{
+	UnloadTexture(m_tile_texture);
+}
