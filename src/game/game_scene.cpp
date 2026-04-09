@@ -3,6 +3,8 @@
 #include <raymath.h>
 #include <raygui.h>
 
+constexpr float zoom_speed = 0.1f;
+
 //constructor, initializes the camera
 game_scene::game_scene(int w, int h, const char* tile_map_file) :
 	map_h{ h },
@@ -64,6 +66,8 @@ void game_scene::handle_playing()
 		delta = Vector2Scale(delta, -1.0f / m_camera.zoom);
 		m_camera.target = Vector2Add(m_camera.target, delta);
 	}
+
+	m_camera.zoom += GetMouseWheelMove() * zoom_speed;
 }
 
 //runs the game scene, checks the current game state and runs the corresponding functions, also checks if there is a next scene to switch to
