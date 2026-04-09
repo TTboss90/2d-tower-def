@@ -67,7 +67,21 @@ void game_scene::handle_playing()
 		m_camera.target = Vector2Add(m_camera.target, delta);
 	}
 
-	m_camera.zoom += GetMouseWheelMove() * zoom_speed;
+	float wheel = GetMouseWheelMove();
+	if (wheel != 0)
+	{
+		Vector2 mouseWorldBefore = GetScreenToWorld2D(GetMousePosition(), m_camera);
+
+		m_camera.zoom *= (1.0f + wheel * zoom_speed);
+
+		if (m_camera.zoom < 0.1f) m_camera.zoom = 0.1f;
+		if (m_camera.zoom > 5.0f) m_camera.zoom = 5.0f;
+
+		Vector2 mouseWorldAfter = GetScreenToWorld2D(GetMousePosition(), m_camera);
+
+		Vector2 delta = Vector2Subtract(mouseWorldBefore, mouseWorldAfter);
+		m_camera.target = Vector2Add(m_camera.target, delta);
+	}
 }
 
 //runs the game scene, checks the current game state and runs the corresponding functions, also checks if there is a next scene to switch to
