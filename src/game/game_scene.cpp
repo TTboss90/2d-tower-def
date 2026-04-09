@@ -4,7 +4,9 @@
 #include <raygui.h>
 
 //constructor, initializes the camera
-game_scene::game_scene(int w,int h,const char* tile_map_file)
+game_scene::game_scene(int w, int h, const char* tile_map_file) :
+	map_h{ h },
+	map_w{ w }
 {
 	m_camera.target = { 0, 0 };
 	m_camera.offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
@@ -19,6 +21,25 @@ game_scene::game_scene(int w,int h,const char* tile_map_file)
 	m_volume_slider.y = 150;
 
 	m_map = std::make_unique<uint8_t[]>(w * h);
+
+	tile_size = 32;
+
+	uint8_t temp[] =
+	{
+		1,1,1,1,1,1,1,1,1,1,
+		1,0,0,0,0,0,0,0,0,1,
+		1,0,0,0,0,0,0,0,0,1,
+		1,0,0,0,0,0,0,0,0,1,
+		1,0,0,0,0,0,0,0,0,1,
+		1,0,0,0,0,0,0,0,0,1,
+		1,0,0,0,0,0,0,0,0,1,
+		1,0,0,0,0,0,0,0,0,1,
+		1,0,0,0,0,0,0,0,0,1,
+		1,1,1,1,1,1,1,1,1,1,
+	};
+
+	std::copy(std::begin(temp), std::end(temp), m_map.get());
+
 	m_tile_texture = LoadTexture(tile_map_file);
 }
 

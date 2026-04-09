@@ -35,6 +35,8 @@ private:
 
 	Texture2D m_tile_texture;
 
+	int map_w, map_h, tile_size;
+
 	Camera2D m_camera{ 0 };
 
 	Rectangle m_volume_slider{ 0 };

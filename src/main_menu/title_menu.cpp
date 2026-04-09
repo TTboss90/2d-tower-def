@@ -22,7 +22,7 @@ void main_menu::init_title_menu()
 		case 1:
 			the_button.label = "Play";
 			the_button.on_click = [this, i]() {
-				next_scene = std::make_unique<game_scene>(100,100,"resources\\test_tile_map.png");
+				next_scene = std::make_unique<game_scene>(10,10,"resources\\test_tile_map.png");
 				m_exit = true;
 				};
 			break;
